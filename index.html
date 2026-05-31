@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAEBA Auditores y Consultores S.R.L.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root {
+    --purple-dark: #4a1a6b;
+    --purple-mid: #7b3fa0;
+    --purple-main: #9b59c0;
+    --purple-light: #c89de0;
+    --purple-pale: #f0e6f8;
+    --purple-bg: #faf5ff;
+    --white: #ffffff;
+    --gray-text: #555;
+    --gray-light: #eee;
+    --accent: #d4a8f0;
+    --shadow: 0 4px 24px rgba(123,63,160,0.10);
+    --shadow-card: 0 2px 12px rgba(123,63,160,0.12);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--purple-bg); color: #2d1a3e; }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple-mid) 60%, var(--purple-main) 100%);
+    padding: 22px 48px 18px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(74,26,107,0.3);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-logo { display:flex; align-items:center; gap:16px; }
+  .logo-diamond {
+    width: 48px; height: 48px; position: relative; flex-shrink: 0;
+  }
+  .logo-diamond svg { width:48px; height:48px; }
+  .header-titles h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700; color: var(--white);
+    letter-spacing: 0.04em;
+  }
+  .header-titles p {
+    font-size: 0.78rem; color: var(--purple-light); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 2px;
+  }
+  .header-subtitle {
+    text-align: right;
+  }
+  .header-subtitle span {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+    color: var(--white); padding: 6px 16px; border-radius: 20px;
+    font-size: 0.82rem; letter-spacing: 0.06em;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--white);
+    border-bottom: 2px solid var(--purple-pale);
+    padding: 0 48px;
+    display: flex; gap: 0; align-items: center;
+    box-shadow: 0 2px 10px rgba(123,63,160,0.07);
+  }
+  nav a {
+    display: block; padding: 16px 20px;
+    text-decoration: none; color: var(--purple-mid);
+    font-size: 0.88rem; font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  nav a:hover, nav a.active {
+    color: var(--purple-dark); border-bottom-color: var(--purple-main);
+    background: var(--purple-pale);
+  }
+
+  /* ── MAIN ── */
+  main { max-width: 1200px; margin: 0 auto; padding: 36px 32px 80px; }
+
+  /* ── SECTION TITLES ── */
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 24px; margin-top: 52px;
+  }
+  .section-header:first-child { margin-top: 0; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem; font-weight: 700; color: var(--purple-dark);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-title::before {
+    content: ''; display: inline-block;
+    width: 5px; height: 28px; background: linear-gradient(180deg, var(--purple-main), var(--purple-light));
+    border-radius: 3px;
+  }
+  .back-btn {
+    background: var(--purple-pale); color: var(--purple-mid);
+    border: 1px solid var(--purple-light); padding: 7px 18px;
+    border-radius: 20px; font-size: 0.8rem; cursor: pointer;
+    text-decoration: none; font-family: 'DM Sans', sans-serif;
+    font-weight: 500; transition: all 0.2s;
+  }
+  .back-btn:hover { background: var(--purple-main); color: white; }
+
+  /* ── EQUIPO ── */
+  .team-grid {
+    display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 8px;
+  }
+  .team-card {
+    background: var(--white); border-radius: 14px; padding: 18px 22px;
+    display: flex; align-items: center; gap: 14px;
+    box-shadow: var(--shadow-card); border: 1px solid var(--purple-pale);
+    flex: 1; min-width: 220px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .team-card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(123,63,160,0.18); }
+  .team-avatar {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple-main), var(--purple-dark));
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 700; font-size: 1rem; flex-shrink: 0;
+    font-family: 'Playfair Display', serif;
+  }
+  .team-info h4 { font-size: 0.9rem; font-weight: 600; color: var(--purple-dark); }
+  .team-info p { font-size: 0.78rem; color: var(--purple-mid); margin-top: 2px; }
+
+  /* ── CARDS GRID ── */
+  .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media(max-width:700px){ .cards-grid { grid-template-columns: 1fr; } }
+  .info-card {
+    background: var(--white); border-radius: 16px; padding: 28px 28px;
+    box-shadow: var(--shadow-card); border: 1px solid var(--purple-pale);
+  }
+  .info-card h3 {
+    font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--purple-mid); font-weight: 600; margin-bottom: 18px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--purple-pale);
+  }
+  .info-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 9px 0; border-bottom: 1px solid #f5f0fa; gap: 16px;
+    font-size: 0.88rem;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-row .label { color: var(--gray-text); flex-shrink: 0; }
+  .info-row .value { color: var(--purple-dark); font-weight: 600; text-align: right; }
+
+  /* ── LEGAJOS ── */
+  .legajos-header {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;
+  }
+  .btn-add-legajo {
+    background: linear-gradient(135deg, var(--purple-mid), var(--purple-dark));
+    color: white; border: none; padding: 11px 24px; border-radius: 25px;
+    font-size: 0.88rem; font-weight: 600; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.2s, transform 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-add-legajo:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  .legajos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media(max-width:800px){ .legajos-grid { grid-template-columns: 1fr; } }
+
+  .legajo-card {
+    background: var(--white); border-radius: 18px; padding: 24px;
+    box-shadow: var(--shadow-card); border: 1px solid var(--purple-pale);
+    transition: box-shadow 0.2s;
+  }
+  .legajo-card:hover { box-shadow: 0 6px 28px rgba(123,63,160,0.15); }
+  .legajo-num {
+    font-size: 0.72rem; font-weight: 700; color: var(--purple-main);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .legajo-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 700; color: var(--purple-dark); margin-bottom: 4px;
+  }
+  .legajo-desc { font-size: 0.82rem; color: var(--gray-text); margin-bottom: 18px; }
+
+  .secciones-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .seccion-item {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--purple-pale); border-radius: 10px; padding: 10px 14px;
+    border: 1px solid rgba(155,89,192,0.12);
+  }
+  .seccion-icon { color: var(--purple-mid); font-size: 1rem; flex-shrink:0; }
+  .seccion-info { flex: 1; min-width: 0; }
+  .seccion-name { font-size: 0.88rem; font-weight: 600; color: var(--purple-dark); }
+  .seccion-link {
+    font-size: 0.75rem; color: var(--purple-mid);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    max-width: 200px; display: block;
+  }
+  .seccion-link.empty { color: #aaa; font-style: italic; }
+  .btn-link {
+    background: none; border: 1px solid var(--purple-light); color: var(--purple-mid);
+    padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: all 0.15s; flex-shrink: 0;
+  }
+  .btn-link:hover { background: var(--purple-main); color: white; border-color: var(--purple-main); }
+  .btn-delete-sec {
+    background: none; border: none; color: #cc6666; cursor: pointer;
+    font-size: 1rem; padding: 2px 5px; border-radius: 6px; flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .btn-delete-sec:hover { background: #ffe0e0; }
+
+  .add-seccion-row {
+    display: flex; gap: 8px; margin-top: 8px; margin-bottom: 14px;
+  }
+  .add-seccion-input {
+    flex: 1; border: 1px solid var(--purple-light); border-radius: 10px;
+    padding: 8px 12px; font-size: 0.84rem; font-family: 'DM Sans', sans-serif;
+    color: var(--purple-dark); background: var(--purple-pale); outline: none;
+  }
+  .add-seccion-input:focus { border-color: var(--purple-main); }
+  .btn-add-sec {
+    background: var(--purple-main); color: white; border: none;
+    padding: 8px 16px; border-radius: 10px; font-size: 0.84rem;
+    cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600;
+    transition: opacity 0.15s;
+  }
+  .btn-add-sec:hover { opacity: 0.85; }
+
+  .legajo-actions {
+    display: flex; gap: 10px; margin-top: 4px; flex-wrap: wrap;
+  }
+  .btn-qr {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--purple-pale); color: var(--purple-mid);
+    border: 1px solid var(--purple-light); padding: 9px 18px;
+    border-radius: 20px; font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+  .btn-qr:hover { background: var(--purple-mid); color: white; }
+  .btn-acceder {
+    display: flex; align-items: center; gap: 6px;
+    background: linear-gradient(135deg, var(--purple-main), var(--purple-mid));
+    color: white; border: none; padding: 9px 20px;
+    border-radius: 20px; font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    text-decoration: none; transition: opacity 0.15s;
+  }
+  .btn-acceder:hover { opacity: 0.88; }
+  .btn-delete-legajo {
+    margin-left: auto; background: none; border: 1px solid #e0aaaa;
+    color: #cc5555; padding: 9px 16px; border-radius: 20px;
+    font-size: 0.82rem; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+  .btn-delete-legajo:hover { background: #ffe0e0; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(74,26,107,0.45); z-index: 999;
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white; border-radius: 20px; padding: 32px;
+    max-width: 420px; width: 90%; box-shadow: 0 16px 60px rgba(74,26,107,0.3);
+  }
+  .modal h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--purple-dark); margin-bottom: 18px; font-size: 1.2rem;
+  }
+  .modal input, .modal select {
+    width: 100%; border: 1px solid var(--purple-light); border-radius: 10px;
+    padding: 10px 14px; font-size: 0.88rem; font-family: 'DM Sans', sans-serif;
+    color: var(--purple-dark); background: var(--purple-pale);
+    margin-bottom: 12px; outline: none;
+  }
+  .modal input:focus, .modal select:focus { border-color: var(--purple-main); }
+  .modal label { font-size: 0.82rem; color: var(--gray-text); margin-bottom: 5px; display: block; }
+  .modal-btns { display: flex; gap: 10px; margin-top: 8px; }
+  .btn-modal-ok {
+    flex: 1; background: linear-gradient(135deg, var(--purple-main), var(--purple-dark));
+    color: white; border: none; padding: 11px; border-radius: 12px;
+    font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif;
+  }
+  .btn-modal-cancel {
+    flex: 1; background: var(--purple-pale); color: var(--purple-mid);
+    border: 1px solid var(--purple-light); padding: 11px; border-radius: 12px;
+    font-size: 0.9rem; cursor: pointer; font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ── QR MODAL ── */
+  .qr-modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(74,26,107,0.5); z-index: 1000;
+    align-items: center; justify-content: center;
+  }
+  .qr-modal-overlay.open { display: flex; }
+  .qr-modal {
+    background: white; border-radius: 20px; padding: 36px 32px 28px;
+    text-align: center; box-shadow: 0 16px 60px rgba(74,26,107,0.35);
+    max-width: 360px; width: 90%;
+  }
+  .qr-modal h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--purple-dark); margin-bottom: 20px;
+  }
+  #qr-container { display: flex; justify-content: center; margin-bottom: 18px; }
+  .qr-modal p { font-size: 0.8rem; color: var(--gray-text); margin-bottom: 16px; }
+  .btn-qr-close {
+    background: var(--purple-pale); color: var(--purple-mid);
+    border: 1px solid var(--purple-light); padding: 9px 28px;
+    border-radius: 20px; font-size: 0.85rem; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ── LINK MODAL ── */
+  .link-modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(74,26,107,0.45); z-index: 1001;
+    align-items: center; justify-content: center;
+  }
+  .link-modal-overlay.open { display: flex; }
+  .link-modal {
+    background: white; border-radius: 20px; padding: 30px;
+    max-width: 420px; width: 90%; box-shadow: 0 16px 60px rgba(74,26,107,0.3);
+  }
+  .link-modal h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--purple-dark); margin-bottom: 14px; font-size: 1.1rem;
+  }
+  .link-modal input {
+    width: 100%; border: 1px solid var(--purple-light); border-radius: 10px;
+    padding: 10px 14px; font-size: 0.88rem; font-family: 'DM Sans', sans-serif;
+    color: var(--purple-dark); background: var(--purple-pale);
+    outline: none; margin-bottom: 14px;
+  }
+  .link-modal input:focus { border-color: var(--purple-main); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple-mid));
+    color: rgba(255,255,255,0.85); text-align: center;
+    padding: 28px 48px; font-size: 0.82rem; margin-top: 60px;
+  }
+  footer strong { color: white; }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    height: 1px; background: linear-gradient(90deg, transparent, var(--purple-light), transparent);
+    margin: 48px 0;
+  }
+
+  /* ── STATUS BADGE ── */
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(155,89,192,0.1); border: 1px solid var(--purple-light);
+    color: var(--white); padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600;
+  }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--purple-main); }
+
+  /* intro banner */
+  .intro-banner {
+    background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple-mid) 100%);
+    border-radius: 20px; padding: 32px 36px; color: white;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px; flex-wrap: wrap; gap: 16px;
+  }
+  .intro-banner h2 {
+    font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 6px;
+  }
+  .intro-banner p { font-size: 0.9rem; opacity: 0.85; }
+  .intro-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .intro-tag {
+    background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 12px;
+    font-size: 0.75rem; letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-logo">
+    <div class="logo-diamond">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="24,2 44,24 24,34 4,24" fill="#c89de0" opacity="0.7"/>
+        <polygon points="24,14 38,28 24,46 10,28" fill="#7b3fa0"/>
+        <polygon points="24,2 38,20 24,28 10,20" fill="#9b59c0" opacity="0.85"/>
+      </svg>
+    </div>
+    <div class="header-titles">
+      <h1>KAEBA</h1>
+      <p>Auditores y Consultores S.R.L.</p>
+    </div>
+  </div>
+  <div class="header-subtitle">
+    <span>Auditoría Financiera y Operativa</span>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#equipo">Nuestro Equipo</a>
+  <a href="#firma">Firma Auditora</a>
+  <a href="#cliente">Cliente Auditado</a>
+  <a href="#legajos">Legajos</a>
+  <a href="#contacto">Contacto</a>
+</nav>
+
+<main>
+
+  <!-- INTRO BANNER -->
+  <div class="intro-banner" style="margin-top:8px;">
+    <div>
+      <h2>KAEBA Auditores y Consultores S.R.L.</h2>
+      <p>Sistema de Gestión de Auditoría Externa — Gestión 2024–2025</p>
+      <div class="intro-tags">
+        <span class="intro-tag">NIA — Normas Internacionales</span>
+        <span class="intro-tag">ASFI — Normativa Bolivia</span>
+        <span class="intro-tag">Gestión 2024–2025</span>
+      </div>
+    </div>
+    <div><span class="status-badge"><span class="status-dot"></span>En Proceso</span></div>
+  </div>
+
+  <!-- ══ EQUIPO ══ -->
+  <div class="section-divider"></div>
+  <section id="equipo">
+    <div class="section-header">
+      <div class="section-title">Nuestro Equipo</div>
+      <a href="#main-nav" class="back-btn">↑ Volver al menú</a>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">KM</div>
+        <div class="team-info">
+          <h4>Lic. CPA Karen Fabiola Mamani Velez</h4>
+          <p>Gerente de Auditoría</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">WJ</div>
+        <div class="team-info">
+          <h4>Lic. CPA Wilson Emerson Jimenez Quisbert</h4>
+          <p>Supervisor</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">AA</div>
+        <div class="team-info">
+          <h4>Lic. CPA Ariel Lucio Apaza Tinini</h4>
+          <p>Auditor Senior 1</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">NS</div>
+        <div class="team-info">
+          <h4>Lic. CPA Nayeli Britney Salas Torrejon</h4>
+          <p>Auditora Senior 2</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">AC</div>
+        <div class="team-info">
+          <h4>Lic. CPA Aleida Condori Casa</h4>
+          <p>Auditora Junior</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FIRMA AUDITORA ══ -->
+  <div class="section-divider"></div>
+  <section id="firma">
+    <div class="section-header">
+      <div class="section-title">Firma Auditora</div>
+      <a href="#main-nav" class="back-btn">↑ Volver al menú</a>
+    </div>
+    <div class="cards-grid">
+      <div class="info-card">
+        <h3>Datos de la Firma</h3>
+        <div class="info-row"><span class="label">Nombre de la firma</span><span class="value">KAEBA Auditores y Consultores S.R.L.</span></div>
+        <div class="info-row"><span class="label">Dirección</span><span class="value">Calacoto / Calle 21 / Torre Lydia Nº8227</span></div>
+        <div class="info-row"><span class="label">Teléfono</span><span class="value">258 4236</span></div>
+        <div class="info-row"><span class="label">Correo electrónico</span><span class="value">kaebaauditoresyconsultores@gmail.com.bo</span></div>
+      </div>
+      <div class="info-card">
+        <h3>Aspectos Metodológicos</h3>
+        <div class="info-row"><span class="label">Enfoque</span><span class="value">Basado en riesgos (NIA 315)</span></div>
+        <div class="info-row"><span class="label">Materialidad</span><span class="value">Determinada según NIA 320</span></div>
+        <div class="info-row"><span class="label">Muestreo</span><span class="value">Estadístico y no estadístico</span></div>
+        <div class="info-row"><span class="label">Pruebas sustantivas</span><span class="value">Confirmación externa, recálculo</span></div>
+        <div class="info-row"><span class="label">Control interno</span><span class="value">Evaluado según NIA 265</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CLIENTE AUDITADO ══ -->
+  <div class="section-divider"></div>
+  <section id="cliente">
+    <div class="section-header">
+      <div class="section-title">Cliente Auditado</div>
+      <a href="#main-nav" class="back-btn">↑ Volver al menú</a>
+    </div>
+    <div class="cards-grid">
+      <div class="info-card">
+        <h3>Datos del Cliente Auditado</h3>
+        <div class="info-row"><span class="label">Razón social</span><span class="value" id="val-razon">Granja Avícola Integral Sofía Ltda.</span></div>
+        <div class="info-row"><span class="label">Nombre comercial</span><span class="value" id="val-comercial">Sofía Ltda.</span></div>
+        <div class="info-row"><span class="label">NIT</span><span class="value" id="val-nit">1028779020</span></div>
+        <div class="info-row"><span class="label">Sector</span><span class="value" id="val-sector">	Agroindustrial / Avícola</span></div>
+        <div class="info-row"><span class="label">Domicilio</span><span class="value" id="val-domicilio">	Parque Industrial Mza.7 (Santa Cruz de la Sierra, Bolivia) — Oficinas administrativas</span></div>
+        <div class="info-row"><span class="label">Tipo de empresa</span><span class="value" id="val-tipo">Sociedad de Responsabilidad Limitada (Ltda.)</span></div>
+      </div>
+      <div class="info-card">
+        <h3>Alcance y Objetivos</h3>
+        <div class="info-row"><span class="label">Tipo de auditoría</span><span class="value" id="val-tipoaud">	Auditoría Financiera y Operativa </span></div>
+        <div class="info-row"><span class="label">Período auditado</span><span class="value" id="val-periodo">Del 1 de julio de 2024 al 30 de junio de 2025</span></div>
+        <div class="info-row"><span class="label">Marco normativo</span><span class="value" id="val-marco">	Normas de Auditoría Generalmente Aceptadas en Bolivia (NAGAs) / Normas Internacionales de Auditoría (NIA) y Normas de Contabilidad Generalmente Aceptadas en Bolivia (NCGA) / NIIF aplicables</span></div>
+        <div class="info-row"><span class="label">Inicio de trabajo</span><span class="value" id="val-inicio">2 de marzo de 2026</span></div>
+        <div class="info-row"><span class="label">Fecha estimada informe</span><span class="value" id="val-fechainf">26 de mayo de 2026</span></div>
+        <div class="info-row"><span class="label">Estado</span><span class="value" id="val-estado">En ejecución</span></div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:20px;">
+      <button class="btn-add-legajo" onclick="openClienteModal()" style="display:inline-flex;">
+        ✏️ Editar datos del cliente auditado
+      </button>
+    </div>
+  </section>
+
+  <!-- ══ LEGAJOS ══ -->
+  <div class="section-divider"></div>
+  <section id="legajos">
+    <div class="section-header">
+      <div class="section-title">Legajos de Auditoría</div>
+      <a href="#main-nav" class="back-btn">↑ Volver al menú</a>
+    </div>
+    <div class="legajos-header">
+      <p style="color:var(--gray-text);font-size:0.88rem;">Gestiona los 5 legajos del proceso de auditoría externa</p>
+      <button class="btn-add-legajo" onclick="openAddLegajoModal()">
+        + Añadir Legajo
+      </button>
+    </div>
+    <div class="legajos-grid" id="legajos-grid"></div>
+  </section>
+
+  <!-- ══ CONTACTO ══ -->
+  <div class="section-divider"></div>
+  <section id="contacto">
+    <div class="section-header">
+      <div class="section-title">Contacto</div>
+      <a href="#main-nav" class="back-btn">↑ Volver al menú</a>
+    </div>
+    <div class="info-card" style="max-width:600px;">
+      <h3>Información de Contacto</h3>
+      <div class="info-row"><span class="label">📍 Dirección</span><span class="value">Calacoto / Calle 21 / Torre Lydia Nº8227</span></div>
+      <div class="info-row"><span class="label">📞 Teléfono</span><span class="value">258 4236</span></div>
+      <div class="info-row"><span class="label">✉️ Correo</span><span class="value">kaebaauditoresyconsultores@gmail.com.bo</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <strong>KAEBA Auditores y Consultores S.R.L.</strong><br>
+  Calacoto / Calle 21 / Torre Lydia Nº8227 &nbsp;|&nbsp; Telf.: 258 4236 &nbsp;|&nbsp; kaebaauditoresyconsultores@gmail.com.bo
+</footer>
+
+<!-- ══ MODAL: ADD LEGAJO ══ -->
+<div class="modal-overlay" id="modal-add-legajo">
+  <div class="modal">
+    <h3>Añadir Nuevo Legajo</h3>
+    <label>Nombre del legajo</label>
+    <input type="text" id="new-legajo-nombre" placeholder="Ej: Legajo de Planificación">
+    <label>Descripción breve</label>
+    <input type="text" id="new-legajo-desc" placeholder="Ej: Planificación y estrategia de auditoría">
+    <label>Link de Google Drive (opcional)</label>
+    <input type="url" id="new-legajo-link" placeholder="https://drive.google.com/...">
+    <div class="modal-btns">
+      <button class="btn-modal-cancel" onclick="closeModal('modal-add-legajo')">Cancelar</button>
+      <button class="btn-modal-ok" onclick="addLegajo()">Crear Legajo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: CLIENTE ══ -->
+<div class="modal-overlay" id="modal-cliente">
+  <div class="modal" style="max-width:560px;">
+    <h3>Datos del Cliente Auditado</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div><label>Razón social</label><input id="f-razon" placeholder="Nombre S.A."></div>
+      <div><label>Nombre comercial</label><input id="f-comercial" placeholder="Nombre Comercial"></div>
+      <div><label>NIT</label><input id="f-nit" placeholder="1234567890"></div>
+      <div><label>Sector</label><input id="f-sector" placeholder="Industria, Comercio..."></div>
+      <div><label>Domicilio</label><input id="f-domicilio" placeholder="La Paz, Bolivia"></div>
+      <div><label>Tipo de empresa</label><input id="f-tipo" placeholder="S.A., SRL..."></div>
+      <div><label>Tipo de auditoría</label><input id="f-tipoaud" placeholder="Financiera Independiente"></div>
+      <div><label>Período auditado</label><input id="f-periodo" placeholder="01/01/2024 – 31/12/2024"></div>
+      <div><label>Marco normativo</label><input id="f-marco" placeholder="NIA, NCGA Bolivia"></div>
+      <div><label>Inicio de trabajo</label><input id="f-inicio" placeholder="Enero 2025"></div>
+      <div><label>Fecha estimada informe</label><input id="f-fechainf" placeholder="Junio 2025"></div>
+      <div><label>Estado</label><input id="f-estado" placeholder="En ejecución"></div>
+    </div>
+    <div class="modal-btns" style="margin-top:16px;">
+      <button class="btn-modal-cancel" onclick="closeModal('modal-cliente')">Cancelar</button>
+      <button class="btn-modal-ok" onclick="saveCliente()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: LINK ══ -->
+<div class="link-modal-overlay" id="modal-link">
+  <div class="link-modal">
+    <h3>Editar Link de Drive</h3>
+    <label style="font-size:0.82rem;color:var(--gray-text);display:block;margin-bottom:6px;" id="link-modal-label">Sección:</label>
+    <input type="url" id="link-modal-input" placeholder="https://drive.google.com/...">
+    <div class="modal-btns">
+      <button class="btn-modal-cancel" onclick="closeModal('modal-link')">Cancelar</button>
+      <button class="btn-modal-ok" onclick="saveLink()">Guardar Link</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: QR ══ -->
+<div class="qr-modal-overlay" id="modal-qr">
+  <div class="qr-modal">
+    <h3 id="qr-title">Código QR</h3>
+    <div id="qr-container"></div>
+    <p id="qr-url-text" style="word-break:break-all;"></p>
+    <button class="btn-qr-close" onclick="closeModal('modal-qr')">Cerrar</button>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+const legajosDefault = [
+  { id:1, nombre:"Legajo de Actividades Previas", desc:"Actividades preliminares al inicio de la auditoría", link:"https://drive.google.com/drive/folders/14JbOP_OGVtxgdgFq02QtpHEXDtZgMwxw?usp=drive_link", secciones:[
+    
+  ]},
+  { id:2, nombre:"Legajo de Planificación", desc:"Planificación y estrategia general de auditoría", link:"https://drive.google.com/drive/folders/1kwzmee98j3wxGGdYvSMgv9LFMCD11vUI?usp=drive_link", secciones:[
+    
+  ]},
+  { id:3, nombre:"Legajo Permanente", desc:"Información general y continua del cliente", link:"", secciones:[
+    
+  ]},
+  { id:4, nombre:"Legajo Corriente", desc:"Papeles de trabajo del período auditado", link:"https://drive.google.com/drive/folders/1ffZVow0tS_iLa45-dfLT3YhUsQo5S61A?usp=drive_link", secciones:[
+    
+  ]},
+  { id:5, nombre:"Legajo Resumen", desc:"Conclusiones finales e informe de auditoría", link:"", secciones:[
+    {id:501, nombre:"Carta a la gerencia", link:""},
+    {id:502, nombre:"Informe de auditoría independiente", link:""},
+    {id:503, nombre:"Hoja de ajustes y reclasificaciones", link:""},
+    {id:504, nombre:"Comunicación de hallazgos", link:""},
+  ]},
+];
+
+let legajos = JSON.parse(localStorage.getItem('kaeba_legajos') || 'null') || legajosDefault;
+let nextId = Math.max(...legajos.map(l=>l.id), 10) + 1;
+let nextSecId = 9000;
+
+function saveLegajos() { localStorage.setItem('kaeba_legajos', JSON.stringify(legajos)); }
+
+// ── RENDER LEGAJOS ──
+function renderLegajos() {
+  const grid = document.getElementById('legajos-grid');
+  grid.innerHTML = '';
+  legajos.forEach((leg, idx) => {
+    const card = document.createElement('div');
+    card.className = 'legajo-card';
+    card.id = 'leg-'+leg.id;
+    const secHtml = leg.secciones.map(sec => `
+      <div class="seccion-item" id="sec-${sec.id}">
+        <span class="seccion-icon">🔗</span>
+        <div class="seccion-info">
+          <div class="seccion-name">${sec.nombre}</div>
+          ${sec.link
+            ? `<a href="${sec.link}" target="_blank" class="seccion-link">${sec.link}</a>`
+            : `<span class="seccion-link empty">Sin link — haz clic en Editar</span>`}
+        </div>
+        <button class="btn-link" onclick="openLinkModal(${leg.id},${sec.id})">Editar</button>
+        <button class="btn-delete-sec" title="Eliminar sección" onclick="deleteSeccion(${leg.id},${sec.id})">✕</button>
+      </div>
+    `).join('');
+
+    card.innerHTML = `
+      <div class="legajo-num">Legajo ${String(idx+1).padStart(2,'0')}</div>
+      <div class="legajo-title">${leg.nombre}</div>
+      <div class="legajo-desc">${leg.desc}</div>
+      <div class="secciones-list">${secHtml}</div>
+      <div class="add-seccion-row">
+        <input class="add-seccion-input" id="new-sec-${leg.id}" placeholder="Nombre de nueva sección...">
+        <button class="btn-add-sec" onclick="addSeccion(${leg.id})">+ Añadir</button>
+      </div>
+      <div class="legajo-actions">
+        <button class="btn-qr" onclick="showQR(${leg.id})">📱 Ver QR</button>
+        ${leg.link ? `<a class="btn-acceder" href="${leg.link}" target="_blank"> Acceder</a>` : `<button class="btn-acceder" onclick="openLegajoLink(${leg.id})">📁 Añadir Link Drive</button>`}
+        <button class="btn-delete-legajo" onclick="deleteLegajo(${leg.id})">🗑 Eliminar</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ── ADD LEGAJO ──
+function openAddLegajoModal() { document.getElementById('modal-add-legajo').classList.add('open'); }
+function addLegajo() {
+  const nombre = document.getElementById('new-legajo-nombre').value.trim();
+  const desc = document.getElementById('new-legajo-desc').value.trim();
+  const link = document.getElementById('new-legajo-link').value.trim();
+  if (!nombre) return alert('Por favor ingresa el nombre del legajo.');
+  legajos.push({ id: nextId++, nombre, desc: desc||'Legajo de auditoría', link, secciones:[] });
+  saveLegajos();
+  renderLegajos();
+  closeModal('modal-add-legajo');
+  document.getElementById('new-legajo-nombre').value='';
+  document.getElementById('new-legajo-desc').value='';
+  document.getElementById('new-legajo-link').value='';
+}
+function deleteLegajo(id) {
+  if (!confirm('¿Eliminar este legajo?')) return;
+  legajos = legajos.filter(l=>l.id!==id);
+  saveLegajos(); renderLegajos();
+}
+function openLegajoLink(legId) {
+  // repurpose link modal
+  currentLinkLegId = legId; currentLinkSecId = null;
+  document.getElementById('link-modal-label').textContent = 'Link principal del legajo (Google Drive):';
+  document.getElementById('link-modal-input').value = '';
+  document.getElementById('modal-link').classList.add('open');
+}
+
+// ── SECCIONES ──
+function addSeccion(legId) {
+  const input = document.getElementById('new-sec-'+legId);
+  const nombre = input.value.trim();
+  if (!nombre) return;
+  const leg = legajos.find(l=>l.id===legId);
+  leg.secciones.push({id: nextSecId++, nombre, link:''});
+  saveLegajos(); renderLegajos();
+}
+function deleteSeccion(legId, secId) {
+  const leg = legajos.find(l=>l.id===legId);
+  leg.secciones = leg.secciones.filter(s=>s.id!==secId);
+  saveLegajos(); renderLegajos();
+}
+
+// ── LINK MODAL ──
+let currentLinkLegId = null, currentLinkSecId = null;
+function openLinkModal(legId, secId) {
+  currentLinkLegId = legId; currentLinkSecId = secId;
+  const leg = legajos.find(l=>l.id===legId);
+  const sec = leg.secciones.find(s=>s.id===secId);
+  document.getElementById('link-modal-label').textContent = 'Sección: ' + sec.nombre;
+  document.getElementById('link-modal-input').value = sec.link || '';
+  document.getElementById('modal-link').classList.add('open');
+}
+function saveLink() {
+  const url = document.getElementById('link-modal-input').value.trim();
+  const leg = legajos.find(l=>l.id===currentLinkLegId);
+  if (currentLinkSecId === null) {
+    leg.link = url;
+  } else {
+    const sec = leg.secciones.find(s=>s.id===currentLinkSecId);
+    sec.link = url;
+  }
+  saveLegajos(); renderLegajos();
+  closeModal('modal-link');
+}
+
+// ── QR ──
+function showQR(legId) {
+  const leg = legajos.find(l=>l.id===legId);
+  const url = leg.link || 'https://kaeba-auditores.bo';
+  document.getElementById('qr-title').textContent = leg.nombre;
+  document.getElementById('qr-url-text').textContent = url;
+  const cont = document.getElementById('qr-container');
+  cont.innerHTML = '';
+  new QRCode(cont, { text: url, width:180, height:180, colorDark:'#4a1a6b', colorLight:'#f0e6f8' });
+  document.getElementById('modal-qr').classList.add('open');
+}
+
+// ── CLIENTE ──
+function openClienteModal() { document.getElementById('modal-cliente').classList.add('open'); }
+function saveCliente() {
+  const fields = ['razon','comercial','nit','sector','domicilio','tipo','tipoaud','periodo','marco','inicio','fechainf','estado'];
+  fields.forEach(f => {
+    const val = document.getElementById('f-'+f).value.trim();
+    if (val) document.getElementById('val-'+f).textContent = val;
+  });
+  closeModal('modal-cliente');
+}
+
+// ── MODAL CLOSE ──
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay,.qr-modal-overlay,.link-modal-overlay').forEach(el => {
+  el.addEventListener('click', e => { if(e.target===el) el.classList.remove('open'); });
+});
+
+// ── NAV ACTIVE ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(sec => { if(window.scrollY >= sec.offsetTop-120) current = sec.id; });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#'+current);
+  });
+});
+
+// ── INIT ──
+renderLegajos();
+</script>
+</body>
+</html>
