@@ -374,6 +374,96 @@
     background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 12px;
     font-size: 0.75rem; letter-spacing: 0.04em;
   }
+
+  /* ══ RESPONSIVE MOBILE ══ */
+  @media (max-width: 768px) {
+    /* Header */
+    header {
+      padding: 12px 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .header-titles h1 { font-size: 1.15rem; }
+    .header-titles p { font-size: 0.68rem; letter-spacing: 0.06em; }
+    .header-subtitle span { font-size: 0.72rem; padding: 5px 10px; }
+    .logo-diamond, .logo-diamond svg { width: 36px; height: 36px; }
+
+    /* Nav — horizontal scroll */
+    nav {
+      padding: 0 4px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { padding: 11px 12px; font-size: 0.78rem; }
+
+    /* Main */
+    main { padding: 18px 12px 60px; }
+
+    /* Section headers */
+    .section-header { flex-wrap: wrap; gap: 8px; margin-top: 36px; }
+    .section-title { font-size: 1.1rem; }
+    .back-btn { font-size: 0.74rem; padding: 6px 12px; }
+
+    /* Intro banner */
+    .intro-banner { padding: 20px 16px; border-radius: 14px; }
+    .intro-banner h2 { font-size: 1.2rem; }
+    .intro-banner p { font-size: 0.8rem; }
+    .intro-tag { font-size: 0.68rem; padding: 3px 10px; }
+
+    /* Team — single column */
+    .team-grid { flex-direction: column; }
+    .team-card { min-width: unset; flex: none; width: 100%; }
+
+    /* Info cards — single column */
+    .cards-grid { grid-template-columns: 1fr !important; }
+    .info-card { padding: 18px 14px; }
+    .info-row {
+      font-size: 0.82rem;
+      flex-direction: column;
+      gap: 2px;
+      align-items: flex-start;
+    }
+    .info-row .value { text-align: left; }
+
+    /* Legajos — single column */
+    .legajos-grid { grid-template-columns: 1fr !important; }
+    .legajo-card { padding: 18px 14px; }
+    .legajos-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .btn-add-legajo { width: 100%; justify-content: center; }
+
+    /* Legajo actions — stack vertically */
+    .legajo-actions { flex-direction: column; gap: 8px; }
+    .btn-qr, .btn-acceder { width: 100%; justify-content: center; }
+    .btn-delete-legajo { width: 100%; margin-left: 0; text-align: center; }
+
+    /* Secciones */
+    .seccion-link { max-width: 100%; white-space: normal; word-break: break-all; }
+    .add-seccion-row { flex-direction: column; }
+    .add-seccion-input { width: 100%; }
+    .btn-add-sec { width: 100%; }
+
+    /* Modal cliente grid — single column on mobile */
+    .modal-cliente-grid { grid-template-columns: 1fr !important; }
+
+    /* Modals */
+    .modal { padding: 22px 16px; max-width: 96vw; }
+    .link-modal, .qr-modal { padding: 24px 16px; max-width: 96vw; }
+
+    /* Divider spacing */
+    .section-divider { margin: 32px 0; }
+
+    /* Footer */
+    footer { padding: 20px 16px; font-size: 0.76rem; }
+  }
+
+  @media (max-width: 420px) {
+    .header-titles h1 { font-size: 1rem; }
+    .intro-banner h2 { font-size: 1.05rem; }
+    .section-title { font-size: 0.98rem; }
+    .legajo-title { font-size: 1rem; }
+  }
 </style>
 </head>
 <body>
@@ -586,9 +676,9 @@
 
 <!-- ══ MODAL: CLIENTE ══ -->
 <div class="modal-overlay" id="modal-cliente">
-  <div class="modal" style="max-width:560px;">
+  <div class="modal" style="max-width:560px;overflow-y:auto;max-height:90vh;">
     <h3>Datos del Cliente Auditado</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div class="modal-cliente-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
       <div><label>Razón social</label><input id="f-razon" placeholder="Nombre S.A."></div>
       <div><label>Nombre comercial</label><input id="f-comercial" placeholder="Nombre Comercial"></div>
       <div><label>NIT</label><input id="f-nit" placeholder="1234567890"></div>
@@ -635,18 +725,10 @@
 <script>
 // ── DATA ──
 const legajosDefault = [
-  { id:1, nombre:"Legajo de Actividades Previas", desc:"Actividades preliminares al inicio de la auditoría", link:"https://drive.google.com/drive/folders/14JbOP_OGVtxgdgFq02QtpHEXDtZgMwxw?usp=drive_link", secciones:[
-    
-  ]},
-  { id:2, nombre:"Legajo de Planificación", desc:"Planificación y estrategia general de auditoría", link:"https://drive.google.com/drive/folders/1kwzmee98j3wxGGdYvSMgv9LFMCD11vUI?usp=drive_link", secciones:[
-    
-  ]},
-  { id:3, nombre:"Legajo Permanente", desc:"Información general y continua del cliente", link:"", secciones:[
-    
-  ]},
-  { id:4, nombre:"Legajo Corriente", desc:"Papeles de trabajo del período auditado", link:"https://drive.google.com/drive/folders/1ffZVow0tS_iLa45-dfLT3YhUsQo5S61A?usp=drive_link", secciones:[
-    
-  ]},
+  { id:1, nombre:"Legajo de Actividades Previas", desc:"Actividades preliminares al inicio de la auditoría", link:"https://drive.google.com/drive/folders/14JbOP_OGVtxgdgFq02QtpHEXDtZgMwxw?usp=drive_link", secciones:[]},
+  { id:2, nombre:"Legajo de Planificación", desc:"Planificación y estrategia general de auditoría", link:"https://drive.google.com/drive/folders/1kwzmee98j3wxGGdYvSMgv9LFMCD11vUI?usp=drive_link", secciones:[]},
+  { id:3, nombre:"Legajo Permanente", desc:"Información general y continua del cliente", link:"", secciones:[]},
+  { id:4, nombre:"Legajo Corriente", desc:"Papeles de trabajo del período auditado", link:"https://drive.google.com/drive/folders/1ffZVow0tS_iLa45-dfLT3YhUsQo5S61A?usp=drive_link", secciones:[]},
   { id:5, nombre:"Legajo Resumen", desc:"Conclusiones finales e informe de auditoría", link:"", secciones:[
     {id:501, nombre:"Carta a la gerencia", link:""},
     {id:502, nombre:"Informe de auditoría independiente", link:""},
@@ -723,7 +805,6 @@ function deleteLegajo(id) {
   saveLegajos(); renderLegajos();
 }
 function openLegajoLink(legId) {
-  // repurpose link modal
   currentLinkLegId = legId; currentLinkSecId = null;
   document.getElementById('link-modal-label').textContent = 'Link principal del legajo (Google Drive):';
   document.getElementById('link-modal-input').value = '';
